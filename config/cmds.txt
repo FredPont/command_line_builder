@@ -1,0 +1,3 @@
+// skip comments
+ls Fex[1]
+bowtie2  -1 /path/Fex[1] -2 /path/Fex[2] | samtools view -bS - > /path/Fne[1].bam

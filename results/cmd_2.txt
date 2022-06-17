@@ -1,0 +1,5 @@
+bowtie2  -1 /path/file01.ext -2 /path/file02.ext | samtools view -bS - > /path/file01.bam
+bowtie2  -1 /path/file03.ext -2 /path/file04.ext | samtools view -bS - > /path/file03.bam
+bowtie2  -1 /path/file05.ext -2 /path/file06.ext | samtools view -bS - > /path/file05.bam
+bowtie2  -1 /path/file07.ext -2 /path/file08.ext | samtools view -bS - > /path/file07.bam
+bowtie2  -1 /path/file09.ext -2 /path/file10.ext | samtools view -bS - > /path/file09.bam

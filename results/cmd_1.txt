@@ -1,0 +1,10 @@
+ls file01.ext
+ls file02.ext
+ls file03.ext
+ls file04.ext
+ls file05.ext
+ls file06.ext
+ls file07.ext
+ls file08.ext
+ls file09.ext
+ls file10.ext
