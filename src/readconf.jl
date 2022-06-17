@@ -22,7 +22,12 @@ end
 # read the files names
 function readFnames()
     path = readPath()
-    return readdir(path)
+    curdir = pwd()
+    cd(path)    # if the directory is not changed files cannot be distinguished from dir
+    d = readdir(path)
+    files = d[.!isdir.(d)]  # extract files and remove folders
+    cd(curdir)
+    return files
 end
 
 # read command file
