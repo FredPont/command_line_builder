@@ -1,5 +1,6 @@
 # Command Line Builder
 Command Line Builder is a tool to build a list of command lines from a list of files. Command Line Builder insert automatically the file names in the command line until all the file names are all used.
+It is possible to substitute file names with or without their extension.
 
 For example, with a file list :  
 [file01.ext, .. file10.ext]
