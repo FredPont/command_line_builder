@@ -24,7 +24,8 @@ function readFnames()
     path = readPath()
     curdir = pwd()
     cd(path)    # if the directory is not changed files cannot be distinguished from dir
-    d = readdir(path)
+    #println("current dir : ", pwd())
+    d = readdir()
     files = d[.!isdir.(d)]  # extract files and remove folders
     cd(curdir)
     return files

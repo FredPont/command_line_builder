@@ -20,12 +20,13 @@ bowtie2  -1 /path/file09.ext -2 /path/file10.ext | samtools view -bS - > /path/f
 # Manual
 Install [Julia](https://julialang.org/downloads/) programming language
 
-1- edit the file config/filePath.txt
+1- edit the file config/filePath.txt or make a text file with the filenames, one filename/line, for example filenames.csv
 insert the path to your files
 
 ex:
 /tmp/filesDir/
 
+or make a text file with the filenames, one filename/line, for example filenames.csv
 
 2- edit the file config/cmd.txt
 insert your command line
@@ -36,6 +37,11 @@ To insert a file name without extension use Fne[n]
 ex:
 bowtie2  -1 /path/Fex[1] -2 /path/Fex[2] | samtools view -bS - > /path/Fne[1].bam
 
-3- run the software with the command : julia main.jl
+3- run the software with the command : 
+
+julia main.jl                # the config/filePath.txt is used to get the filenames from the disk
+
+
+julia main.jl filenames.csv  # the filenames are obtained from filenames.csv
 
 4- The software will substitute the Fex[n]/Fne[n] pattern with the list of files in alphabetical order

@@ -19,23 +19,33 @@ using Test
 include("src/readconf.jl")
 include("src/parseCMD.jl")
 
+@testset "parsePatrn" begin
 @test parsePatrn("Fex[1]") == ("Fex" , 1)
 @test parsePatrn("Fex[42]") == ("Fex" , 42)
+end
 
+@testset "extrctPatrn" begin
 @test extrctPatrn("bowtie2  -1 /path/Fex[1] -2 /path/Fex[2] | samtools view -bS - > /path/Fne[1]") == ["Fex[1]", "Fex[2]", "Fne[1]"]
 @test extrctPatrn("bowtie2  -1 /path/Fex[1] -2 /path/Fex[12] | samtools view -bS - > /path/Fne[5]") == ["Fex[1]", "Fex[12]", "Fne[5]"]
+end
 
+@testset "filesPerCMD" begin
 @test filesPerCMD(["Fex[1]", "Fex[2]", "Fne[1]"]) == 2
 @test filesPerCMD(["Fex[1]", "Fex[2]", "Fne[3]"]) == 3
+end
 
+@testset "checkFileNB" begin
 @test checkFileNB(["DSCN2727.JPG", "DSCN2728.JPG", "DSCN2729.JPG"], 1) == true
 @test checkFileNB(["DSCN2727.JPG", "DSCN2728.JPG", "DSCN2729.JPG"], 3) == true
 @test checkFileNB(["DSCN2727.JPG", "DSCN2728.JPG", "DSCN2729.JPG"], 2) == false
 @test checkFileNB(["DSCN2727.JPG", "DSCN2728.JPG", "DSCN2729.JPG"], 4) == false
+end
 
+@testset "buildCMD" begin
 @test buildCMD("ls Fex[1]", ["Fex[1]"], ["DSCN2727.JPG", "DSCN2728.JPG", "DSCN2729.JPG"]) == "ls DSCN2727.JPG"
 @test buildCMD("ls Fex[1] Fex[2]", ["Fex[1]", "Fex[2]"], ["DSCN2727.JPG", "DSCN2728.JPG", "DSCN2729.JPG"]) == "ls DSCN2727.JPG DSCN2728.JPG"
 @test buildCMD("bowtie2  -1 /path/Fex[1] -2 /path/Fex[2] | samtools view -bS - > /path/Fne[1].bam", ["Fex[1]", "Fex[2]", "Fne[1]"], ["DSCN2727.JPG", "DSCN2728.JPG", "DSCN2729.JPG"]) == "bowtie2  -1 /path/DSCN2727.JPG -2 /path/DSCN2728.JPG | samtools view -bS - > /path/DSCN2727.bam"
+
 
 a = Array{String,1}()
 for i in 1:8
@@ -43,3 +53,5 @@ for i in 1:8
 end
 
 @test buildCMD("bowtie2  -1 /path/Fex[1] -2 /path/Fex[2] | samtools view -bS - > /path/Fne[1].bam", ["Fex[1]", "Fex[2]", "Fne[1]"], a) == "bowtie2  -1 /path/file1.ext -2 /path/file2.ext | samtools view -bS - > /path/file1.bam"
+
+end

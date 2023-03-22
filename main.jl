@@ -14,13 +14,26 @@
 #  Written by Frederic PONT.
 #  (c) Frederic Pont 2022
 
+# usage : julia main.jl filenames.csv 
+#      or julia main.jl (filenames are read on the disk from the path in filePath.txt file)
+
+using DelimitedFiles
+
 include("src/readconf.jl")
 include("src/parseCMD.jl")
 
 function main()
     T0 = time()
+    filenames = Array{String, 1}()
     # read files
-    filenames = readFnames()
+    if length(ARGS) == 0
+        filenames = readFnames() # without arguments, the filenames are read from the filePath.txt file
+    else
+        filenames = readdlm(ARGS[1]) # with argument, the filenames are read from the file used as argument
+        filenames = filter(!=(" "), filenames) # remove empty string
+        #println(filenames)
+        sort!(filenames)
+    end
     processFiles(filenames)
     println("Elapsed time : ", time()-T0, " sec")
 end
